@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(new MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -10,30 +8,49 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String message = "Ini adalah Text";
+  List<Widget> widgets = [];
+  int counter = 1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Anonymous Method"),
+          title: Text('Latihan ListView'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(message),
-              RaisedButton(
-                child: Text("Tekan Saya!"),
-                onPressed: () {
-                  setState(() {
-                    message = "Tombol sudah ditekan!";
-                  });
-                },
-              )
-            ],
-          ),
+        body: ListView(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text("Tambah Data"),
+                  onPressed: () {
+                    setState(() {
+                      widgets.add(Text(
+                        "Data Ke - " + counter.toString(),
+                        style: TextStyle(fontSize: 30),
+                      ));
+                      counter++;
+                    });
+                  },
+                ),
+                RaisedButton(
+                  child: Text("Hapus Data"),
+                  onPressed: () {
+                    setState(() {
+                      widgets.removeLast();
+                      counter--;
+                    });
+                  },
+                )
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widgets,
+            )
+          ],
         ),
       ),
     );
